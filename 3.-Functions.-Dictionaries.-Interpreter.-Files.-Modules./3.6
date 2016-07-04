@@ -13,3 +13,26 @@ r=r.text
 r=r.splitlines()
 with open("C:/Users/admin/Desktop/output.txt",'w') as out:
     out.write(str(len(r)))
+
+3.6 шаг 3
+
+Имеется набор файлов, каждый из которых, кроме последнего, содержит имя следующего файла.
+Первое слово в тексте последнего файла: "We".
+Скачайте предложенный файл. В нём содержится ссылка на первый файл из этого набора. 
+Все файлы располагаются в каталоге по адресу:
+https://stepic.org/media/attachments/course67/3.6.3/
+Загрузите содержимое ﻿последнего файла из набора, как ответ на это задание.
+
+Код:
+import requests
+with open("C:/Users/admin/Desktop/dataset_3378_3.txt") as file:
+    s=file.readline().strip()
+    r=requests.get(s)
+while True:
+    ss="https://stepic.org/media/attachments/course67/3.6.3/"+r.text
+    r=requests.get(ss)
+    if len(r.text)>20:
+        break
+
+with open("C:/Users/admin/Desktop/output.txt",'w') as out:
+    out.write(str(r.text))
