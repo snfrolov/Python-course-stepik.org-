@@ -6,15 +6,15 @@
 
 Код:
 spisok=[]
-spisok2=[]
 while True:
     a=int(input())
     spisok.append(a)
-    b=a**2
-    spisok2.append(b)
+    b=spisok
     if sum(spisok)==0:
         break
-print(sum(spisok2))
+for i in range(len(b)):
+    b[i]=b[i]**2
+print(sum(b))
 
 2.6 шаг 8
 
