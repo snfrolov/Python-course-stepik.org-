@@ -12,6 +12,29 @@
 Порядок вывода команд произвольный.
 
 Код:
+games = int(input())
+results = {}
+for n in range(games):
+    line = input()
+    line = line.split(";")
+    for i in range(0,3,2):
+        if line[i] not in results:
+            results[line[i]] = [1, 0, 0, 0, 0]
+        else:
+            results[line[i]][0] += 1
+    if line[1] > line[3]:
+        results[line[0]][1] += 1
+        results[line[2]][3] += 1
+    elif line[1] == line[3]:
+        results[line[0]][2] += 1
+        results[line[2]][2] += 1
+    else:
+        results[line[0]][3] += 1
+        results[line[2]][1] += 1
+
+for team, res in results.items():
+    res[4] = res[1]*3 + res[2]
+    print(team+":", res[0], res[1], res[2], res[3], res[4])
 
 
 3.7 шаг 2
@@ -30,6 +53,67 @@ abacabadaba
 dacabac
 
 Код:
+s=str(input())
+a=[]
+for i in range(len(s)):
+    si=s[i]
+    a.append(si)
+b=[]
+n=str(input())
+for j in range(len(n)):
+    sj=n[j]
+    b.append(sj)
+p={}
+for pi in range(len(s)):
+    key=s[pi]
+    p[key]=0
+j1=0
+for i in range(0,len(a)):
+    key=a[i]
+    while j1<len(b):
+        bj=b[0]
+        if key in p:
+            p[key]=bj
+        b.remove(bj)
+        break
+c=[]
+si=str(input())
+
+for si1 in range(0,len(si)):
+    ci=si[si1]
+    c.append(ci)
+
+co=[]
+
+for ci in range(0,len(c)):
+    if c[ci] in p:
+        cco=c[ci]
+        pco=p[cco]
+        co.append(pco)
+
+d=[]
+
+di=str(input())
+
+for sj1 in range(0,len(di)):
+    dj=di[sj1]
+    d.append(dj)
+
+do=[]
+
+for di in range(0,len(d)):
+    for key in p:
+        pkey=key
+        if p.get(key) == d[di]:
+            ddo=pkey
+            do.append(ddo)
+
+for i in range (0,len(co)):
+    print(co[i],end='')
+print()
+
+for j in range (0,len(do)):
+    print(do[j],end='')
 
 
 3.7 шаг 3
@@ -40,7 +124,19 @@ dacabac
 Напишите программу, которая выводит слова из текста, которые не встречаются в словаре. Регистр слов не учитывается. Порядок вывода слов произвольный. Слова, не встречающиеся в словаре, не должны повторяться в выводе программы.
 
 Код:
+known = set()
+unknown = set()
 
+for _ in range(int(input())):
+    known.add(input().strip().lower())
+
+for _ in range(int(input())):
+    for word in input().strip().lower().split():
+        if word not in known:
+            unknown.add(word)
+
+for word in unknown:
+    print(word)
 
 
 3.7 шаг 4
@@ -56,7 +152,21 @@ dacabac
 Программе подаётся на вход число команд nn, которые нужно выполнить черепашке, после чего nn строк с самими командами. Вывести нужно два числа в одну строку: первую и вторую координату конечной точки черепашки. Все координаты целочисленные.
 
 Код:
+n = int(input())
+pos = [0,0]
+for i in range(n):
+    cmd = input()
+    ls = cmd.split()
+    if ls[0] == "север":
+        pos[1] += int(ls[1])
+    elif ls[0] == "запад":
+        pos[0] -= int(ls[1])
+    elif ls[0] == "юг":
+        pos[1] -= int(ls[1])
+    elif ls[0] == "восток":
+        pos[0] += int(ls[1])
 
+print(pos[0],pos[1])
 
 
 3.7 шаг 5
@@ -69,4 +179,19 @@ dacabac
 Выводить информацию о среднем росте следует в порядке возрастания номера класса (для классов с первого по одиннадцатый). Если про какой-то класс нет информации, необходимо вывести напротив него прочерк, например:
 
 Код:
+setClasses = tuple(str(i) for i in range(1, 12))
+dictHeight = dict.fromkeys(setClasses, 0)
+dictCount = dict.fromkeys(setClasses, 0)
 
+with open('D:\Python\dataset_3380_5.txt', encoding='UTF-8') as inf:
+    for line in inf:
+        lst = line.strip().split('\t')
+        dictHeight[lst[0]] += float(lst[2])
+        dictCount[lst[0]] += 1
+
+for i in setClasses:
+    if dictHeight[i] == 0:
+        d = '-'
+    else:
+        d = str(dictHeight[i] / dictCount[i])
+    print(i + ' ' + d)
